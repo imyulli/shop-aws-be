@@ -6,6 +6,7 @@
       "@libs/*": ["src/libs/*"],
       "@data/*": ["src/data/*"],
       "@errors/*": ["src/errors/*"],
+      "@services/*": ["src/services/*"],
     }
   }
 }

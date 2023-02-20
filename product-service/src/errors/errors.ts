@@ -15,3 +15,9 @@ export class NotFoundError extends ApplicationError {
         return 404
     }
 }
+
+export class ProductIsInvalid extends ApplicationError {
+    get statusCode() {
+        return 400
+    }
+}
