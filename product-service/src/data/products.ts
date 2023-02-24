@@ -5,7 +5,7 @@ export default
             "description": "Ficus is a genus of about 850 species of woody trees, shrubs, vines, epiphytes and hemiepiphytes in the family Moraceae.",
             "id": "0",
             "price": 10,
-            "title": "Ficus"
+            "title": "Ficus Ficus"
         },
         {
             "count": 7,
