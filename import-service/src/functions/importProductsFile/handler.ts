@@ -21,9 +21,9 @@ const importProductsFile: ValidatedEventAPIGatewayProxyEvent<typeof schema> = as
   const signedUrl = await getSignedUrl(s3Client, command, {
     expiresIn: 3600,
   });
-  return formatJSONResponse({
+  return formatJSONResponse(
     signedUrl
-  });
+  );
 };
 
 export const main = middyfy(importProductsFile );
