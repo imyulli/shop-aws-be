@@ -2,20 +2,14 @@
 
 ## What was done?
 
-   1. getProductsList and getProductsById Lambda functions are implemented.
-   2. Functions return a correct response.
-   3. YAML configuration is created.
-   4. Frontend application is integrated with Product Service (/products API) and products from Product Service are represented on Frontend.
+  [x] File serverless.yml contains configuration for catalogBatchProcess function
+  [x] File serverless.yml contains policies to allow lambda catalogBatchProcess function to interact with SNS and SQS
+  [x] File serverless.yml contains configuration for SQS catalogItemsQueue
+  [x] File serverless.yml contains configuration for SNS Topic createProductTopic and email subscription
 
-   Additional scope - swagger, error handling for "Product not found" error.
+## Additional (optional) tasks:
+  [ ] catalogBatchProcess lambda is covered by unit tests
+  [x] Set a Filter Policy for SNS createProductTopic in serverless.yml and create an additional email subscription to distribute messages to different emails depending on the filter for any product attribute
 
-## Link to Product Service API:
-https://9dz1y3v6qj.execute-api.eu-west-1.amazonaws.com/dev/products
-https://9dz1y3v6qj.execute-api.eu-west-1.amazonaws.com/dev/products/{productId}
-
-
-## Link to FE PR (YOUR OWN REPOSITORY) -  
-https://github.com/imyulli/shop-angular-cloudfront/pull/2
-
-## Swagger:
-https://cvkkrmt651.execute-api.eu-west-1.amazonaws.com/swagger
+## Link to FE -
+  https://d2w89pf5wj2a53.cloudfront.net
