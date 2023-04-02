@@ -59,6 +59,24 @@ const serverlessConfiguration: AWS = {
     autoswagger: {
       host: 'w5h03yo63d.execute-api.eu-west-1.amazonaws.com/dev'
     }
+  },
+  //to fix issue with 0 status code
+  resources: {
+    Resources: {
+      Unauthorized: {
+        Type: 'AWS::ApiGateway::GatewayResponse',
+        Properties: {
+          ResponseParameters: {
+            "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+            "gatewayresponse.header.Access-Control-Allow-Headers": "'*'",
+          },
+          ResponseType: 'DEFAULT_4XX',
+          RestApiId: {
+            Ref: 'ApiGatewayRestApi'
+          }
+        }
+      }
+    }
   }
 };
 
