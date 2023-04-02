@@ -1,4 +1,5 @@
 import { S3Client, GetObjectCommand, CopyObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
 import { errorResponse } from '@libs/api-gateway';
 import { S3Event } from "aws-lambda";
 import csv from 'csv-parser';
@@ -6,6 +7,7 @@ import csv from 'csv-parser';
 const BUCKET = 'yi-import-service-bucket';
 const REGION = "eu-west-1";
 const s3Client = new S3Client({ region: REGION });
+const sqsClient = new SQSClient({ region: REGION });
 
 const importFileParser = async (event: S3Event) => {
   try {
@@ -22,12 +24,18 @@ const importFileParser = async (event: S3Event) => {
   
       await new Promise((resolve, reject) => {
         stream.pipe(csv())
-        .on('data', (data) => {
-          results.push(data);
+        .on('data', async (data) => {
+            console.log(`Product start: ${JSON.stringify(data)}`);
+            const sqsParams = {
+              QueueUrl: process.env.SQS_URL,
+              MessageBody: JSON.stringify(data)
+            }
+            results.push(data);
+            const result = await sqsClient.send(new SendMessageCommand(sqsParams));
+            console.log(`Product sent: ${JSON.stringify(result)}`);
         })
         .on('end', () => {
-          console.log(results);
-          resolve('');
+          resolve(results);
         })
         .on('error', (error) => {
           console.log(error);

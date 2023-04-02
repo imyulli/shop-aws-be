@@ -17,6 +17,7 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      SQS_URL: 'https://sqs.eu-west-1.amazonaws.com/975691088099/catalogItemsQueue'
     },
     region: 'eu-west-1',
     iam: {
@@ -31,6 +32,11 @@ const serverlessConfiguration: AWS = {
             Effect: 'Allow',
             Action: 's3:*',
             Resource: 'arn:aws:s3:::yi-import-service-bucket/*'
+          },
+          {
+            Effect: 'Allow',
+            Action: 'sqs:*',
+            Resource: 'arn:aws:sqs:eu-west-1:975691088099:catalogItemsQueue'
           },
         ]
       }
@@ -53,7 +59,7 @@ const serverlessConfiguration: AWS = {
     autoswagger: {
       host: 'w5h03yo63d.execute-api.eu-west-1.amazonaws.com/dev'
     }
-  },
+  }
 };
 
 module.exports = serverlessConfiguration;
